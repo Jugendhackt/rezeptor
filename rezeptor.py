@@ -7,6 +7,7 @@ import neuralnetwork
 # create the app. This variable named jh constains our app
 jh = Flask(__name__)
 
+ingredients = []
 ingredientList = [
     ["Tomato", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/%22farmer%27s_market%22_%282617703671%29.jpg/800px-%22farmer%27s_market%22_%282617703671%29.jpg", 300, "grams"],
     ["Onions", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Red_onion_rings_closeup.jpg/120px-Red_onion_rings_closeup.jpg", 75, "grams"],
@@ -24,40 +25,43 @@ ingredientList = [
     ["Choco-Chips", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Choco_chip_cookie_half.png/1024px-Choco_chip_cookie_half.png", 50, "grams"]
 ]
 
+class Ingredient():
+    def __init__(self, name, image, multiplier, unit, calculated=0):
+        self.name = name
+        self.image = image
+        self.multiplier = multiplier
+        self.unit = unit
+        self.calculated = calculated
+        self.slug = slugify(self.name)
+
 # add routes to our app
 @jh.route('/')
 def Rezeptor():
-    out=[]
-    for i in range(len(ingredientList)):
-        ingredient = ingredientList[i]
-        ingredient.append(slugify(ingredient[0]))
-        out.append(ingredient)
-    return render_template('frontpage.html', ingredients=out )
+    return render_template('frontpage.html', ingredients=ingredients )
 
 @jh.route('/recipe', methods=['GET', 'POST'])
 def test():
     form = request.form
     ingredientsAvailable = []
     ingredientsBinary = []
-    for ingred in ingredientList:
-        slug = slugify(ingred[0])
+    for ingredient in ingredients:
         try:
-            form[slug]
+            form[ingredient.slug]
         except:
-            ingredientsAvailable.append(slug)
+            ingredientsAvailable.append(ingredient.slug)
             ingredientsBinary.append(1)
         else:
             ingredientsBinary.append(0)
     nnOut = neuralnetwork.dieAI(ingredientsBinary)
     genRecipe = []
-    for i in range(len(ingredientList)):
+    for i in range(len(ingredients)):
         if nnOut[i] > 0.5:
-            ingredi = ingredientList[i]
-            ingredi.append(int(round(nnOut[i]*ingredi[2])))
-            genRecipe.append(ingredi)
+            ingredient = ingredients[i]
+            ingredient.calculated = int(round(nnOut[i]*ingredient.multiplier))
+            genRecipe.append(ingredient)
 
     #return jsonify(recipe)
-    return render_template('recipe.html', recipe=genRecipe, jsonified=jsonify(genRecipe))
+    return render_template('recipe.html', recipe=genRecipe)
     return jsonify(neuralnetwork.dieAI(ingredientsBinary))
 
 def slugify(text):
@@ -68,4 +72,6 @@ def slugify(text):
 # This comment a comment
 # Run the app if someone runs this file.
 if __name__ == "__main__":
+    for ingred in ingredientList:
+        ingredients.append(Ingredient(ingred[0],ingred[1],ingred[2],ingred[3]))
     jh.run(debug=True,host='0.0.0.0')

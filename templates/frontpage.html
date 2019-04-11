@@ -37,13 +37,13 @@
                 <div class="col-sm">
                     <div class="btn-group-toggle" data-toggle="buttons">
                       <label class="btn btn-success active">
-                        <input type="checkbox" checked autocomplete="off" value="0" name="{{ ingredient[2] }}">
-                        {{ ingredient[0] }}
+                        <input type="checkbox" checked autocomplete="off" value="0" name="{{ ingredient.slug }}">
+                        {{ ingredient.name }}
                       </label>
                     </div>
                 </div>
                 <div class="col-sm">
-                    <img src="{{ ingredient[1] }}" height="108px">
+                    <img src="{{ ingredient.image }}" height="108px">
                 </div>
             </div>
             {% endfor %}

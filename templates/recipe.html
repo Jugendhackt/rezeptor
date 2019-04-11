@@ -58,9 +58,7 @@
         <ul class="list-group">
 
             {% for ingredient in recipe %}
-
-                <li class="list-group-item">{{ ingredient[-1] }} {{ ingredient[3] }} of {{ ingredient[0] }}</li>
-                <!--<li class="list-group-item">{{ ingredient[0] }} {{ ingredient[1] }} {{ ingredient[2] }} {{ ingredient[3] }} {{ ingredient[4] }} JSON: {{ jsonified }}</li>-->
+                <li class="list-group-item">{{ ingredient.calculated }} {{ ingredient.unit }} of {{ ingredient.name }}</li>
             {% endfor %}
         </ul>
 
