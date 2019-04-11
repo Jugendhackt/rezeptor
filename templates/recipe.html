@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Rezeptor</title>
+    <title>Rezeptor - Recipe</title>
     <style>
         body {
             background-color: black;
@@ -53,27 +53,32 @@
 
 <body>
     <h1>Rezeptor</h1>
-
-    <br>
-
-    <h2> Pancakes </h2>
-
-    <style>
-
-    </style>
     <div class="container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Eating_Pancakes_%28Unsplash%29.jpg" height="500px">
         <h3> Ingredients </h3>
         <ul class="list-group">
-            <li class="list-group-item">1.5 cups all-purpose flour</li>
-            <li class="list-group-item">3.5 teaspoon baking powder</li>
-            <li class="list-group-item">1 teaspoon salt</li>
-            <li class="list-group-item">1 tablespoon white sugar</li>
-            <li class="list-group-item">1.25 cups milk</li>
-            <li class="list-group-item">1 egg </li>
-            <li class="list-group-item">3 tablespoon melted butter </li>
+
+            {% for ingredient in recipe %}
+                <li class="list-group-item">{{ ingredient[4] }} {{ ingredient[3] }} of {{ ingredient[0] }}</li>
+            {% endfor %}
         </ul>
+
+        <br>
+        <div class="row">
+                <div class="col">
+                    <center>
+                        <a type="button" class="btn btn-success" href="#">👍</a>
+                    </center>
+                </div>
+                <div class="col">
+                    <center>
+                        <a type="button" class="btn btn-danger" href="#">👎</a>
+                    </center>
+                </div>
+        </div>
     </div>
+    <br>
+    <br>
 </body>
 
 </html>

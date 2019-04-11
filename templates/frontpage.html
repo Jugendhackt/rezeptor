@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <title>Hello, world!</title>
+    <title>Rezeptor - Home</title>
 
     <style>
         h1 {
@@ -26,14 +26,14 @@
 
 <body background="http://www.dreamtemplate.com/dreamcodes/bg_images/color/c9.jpg">
     <div class="container">
-        <!-- Content here -->
         <center>
-            <h1>REZEPTOR!</h1>
+            <img src="static/logo.jpg" width="15%"></img>
         </center>
-        <form method="POST" action="recipe">
+        <br>
 
+        <form method="POST" action="recipe">
             {% for ingredient in ingredients %}
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-sm">
                     <div class="btn-group-toggle" data-toggle="buttons">
                       <label class="btn btn-secondary active">
@@ -41,11 +41,6 @@
                         {{ ingredient[0] }}
                       </label>
                     </div>
-                    <!--
-                    <button type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" value="1" name="{{ ingredient[2] }}">
-                        {{ ingredient[0] }}
-                    </button>
-                    -->
                 </div>
                 <div class="col-sm">
                     <img src="{{ ingredient[1] }}" height="108px">
@@ -53,8 +48,13 @@
             </div>
             {% endfor %}
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            <center>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </center>
         </form>
     </div>
+    <br>
+    <br>
 </body>
 </html>
